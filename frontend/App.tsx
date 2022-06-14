@@ -3,12 +3,12 @@ import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, 
 
 export default function App() {
 
+
+
   return (
     <SafeAreaView>
       <StatusBar/>
-      <ScrollView>
-
-      </ScrollView>
+      <Text> Yooo Let's gooo !!</Text>
     </SafeAreaView>
   )
 };
