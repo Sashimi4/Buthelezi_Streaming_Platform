@@ -5,15 +5,18 @@ import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } fr
 import Colors from '../../assets/Colors'
 import Logo from '../atoms/Logo';
 
-export default function LoginPage() {
+export default function RegistrationPage() {
 
     const [email, setEmail] = useState('')
 
     const [password, setPassword] = useState('')
+
+    const [confirmationPassword, setConfirmationPassword] = useState('')
   
     return (
       <View style={styles.container}>
         
+        {/* Here comes an image of some sort */}
         <Logo/>
 
         <View style={styles.contentWrapper}>
@@ -29,10 +32,6 @@ export default function LoginPage() {
                 onChangeText={(input) => setEmail(input)}
                 />
 
-                <View style={styles.errorTextMessageWrapper}>
-                    <Text style={styles.errorTextMessage}>error messages</Text>
-                </View>
-
                 <TextInput
                 style={styles.inputFields}
                 placeholderTextColor={Colors.OFF_WHITE}
@@ -42,15 +41,31 @@ export default function LoginPage() {
                 value={password}
                 onChangeText={(input) => setPassword(input)}
                 />
+
+                <View style={styles.errorTextMessageWrapper}>
+                    <Text style={styles.errorTextMessage}>error messages</Text>
+                </View>
+
+                <TextInput
+                style={styles.inputFields}
+                placeholderTextColor={Colors.OFF_WHITE}
+                autoComplete='password'
+                placeholder="Confirm Password"
+                secureTextEntry={true}
+                value={confirmationPassword}
+                onChangeText={(input) => setConfirmationPassword(input)}
+                />
+
+                <View style={styles.errorTextMessageWrapper}>
+                    <Text style={styles.errorTextMessage}>Cofirm error messages</Text>
+                </View>
             </KeyboardAvoidingView>
 
             <Pressable style={styles.signInButton}>
-                <Text style={styles.signInButtonText}>Sign In</Text>
+                <Text style={styles.signInButtonText}>Sign up</Text>
             </Pressable>
 
-            <View style={styles.registrationTextWrapper}>
-                <Text style={styles.registrationText}>New to *Company name* ?</Text><Text style={styles.registrationLink}> Sign Up now</Text>
-            </View>
+        
 
         </View>
       </View>
@@ -96,6 +111,12 @@ export default function LoginPage() {
     image: {
         backgroundColor: 'yellow',
     },
+    registrationTextWrapper: {
+
+    },
+    registrationText: {
+        color: Colors.OFF_WHITE,
+    },
     errorTextMessageWrapper: {
         backgroundColor: Colors.BACKGROUND_BLACK,
         borderRadius: 20,
@@ -109,14 +130,8 @@ export default function LoginPage() {
         paddingLeft: 10,
         paddingRight: 10,
     },
-    registrationTextWrapper: {
-
-    },
-    registrationText: {
-        color: Colors.OFF_WHITE,
-    },
     registrationLink: {
-        color:Colors.WHITE,
+        color: Colors.WHITE,
         fontWeight: 'bold',
     },
   });
