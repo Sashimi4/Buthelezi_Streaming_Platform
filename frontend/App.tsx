@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar'
 import { StyleSheet, Text, View } from 'react-native'
 import Colors from './assets/Colors'
+import BackButton from './components/atoms/BackButton'
 import FooterNav from './components/organisms/FooterNav'
 
 import LoginPage from './components/pages/Loginpage'
@@ -11,6 +12,7 @@ export default function App() {
   return (
       <>
         <View style={styles.container}>
+          <BackButton/>
           <FooterNav/>
         </View>
       </>

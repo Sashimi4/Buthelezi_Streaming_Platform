@@ -33,7 +33,6 @@ export default function FooterNav() {
             name='user'
             size={30}/>
         </Pressable>
-        
       </View>
     );
   }
@@ -50,6 +49,7 @@ export default function FooterNav() {
       backgroundColor: Colors.LIGHT_BLACK,
       borderTopRightRadius: 15,
       borderTopLeftRadius: 15,
+      zIndex: 999,
     },
     inactiveFooterIconWrapper: {
       backgroundColor: Colors.ICON_INACTIVE_BACKGROUND_BLACK,
