@@ -18,11 +18,11 @@ export default function MovieCarousel() {
         },
         {
             image:"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg",
-            text: "Text 2",
+            text: "Moonknight",
         },
         {
             image:"https://i.ebayimg.com/images/g/X1AAAOSwYRRgfeVE/s-l500.jpg",
-            text: "Text 3",
+            text: "Wanda Vision",
         },
       ]
 

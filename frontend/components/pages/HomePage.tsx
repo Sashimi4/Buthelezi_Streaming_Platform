@@ -4,6 +4,7 @@ import { ScrollView, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInpu
 
 import Colors from '../../assets/Colors'
 import Logo from '../atoms/Logo';
+import MovieCard from '../atoms/MovieCard';
 import MovieCarousel from '../molecules/MovieCarousel';
 import FooterNav from '../organisms/FooterNav';
 
@@ -18,7 +19,29 @@ export default function HomePage() {
 
           <MovieCarousel/>
 
-          
+          <Text style={styles.horizontalMovieListTitle}>New Releases</Text>
+
+          <ScrollView
+          style={styles.horizontalMovieList}
+          horizontal={true}
+          >
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
+          </ScrollView>
+
+          <Text style={styles.horizontalMovieListTitle}>New Releases</Text>
+
+          <ScrollView
+          style={styles.horizontalMovieList}
+          horizontal={true}
+          >
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
+          </ScrollView>
 
         </ScrollView>
 
@@ -35,5 +58,14 @@ export default function HomePage() {
     },
     contentWrapper: {
       position: 'relative',
-    }
+    },
+    horizontalMovieListTitle: {
+      color: Colors.WHITE,
+      fontSize: 20,
+      fontWeight: 'bold',
+      paddingHorizontal: 10,
+    },
+    horizontalMovieList: {
+      marginVertical: 15,
+    },
   });
