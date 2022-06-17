@@ -18,5 +18,6 @@ export default function Logo() {
         alignSelf: 'center',
         alignItems: 'center',
         backgroundColor: Colors.GREEN,
+        marginVertical: 40, 
     }
   });
