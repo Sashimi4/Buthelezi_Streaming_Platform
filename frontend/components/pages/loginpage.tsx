@@ -67,7 +67,6 @@ export default function LoginPage() {
     contentWrapper: {
         width: '80%',
         height: '50%',
-        backgroundColor: Colors.BACKGROUND_BLACK,
     },
     signInButton: {
         alignItems: 'center',

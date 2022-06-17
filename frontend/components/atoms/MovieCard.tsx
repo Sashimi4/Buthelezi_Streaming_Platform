@@ -8,11 +8,14 @@ export default function MovieCard(props) {
 
   return (
     <View style={styles.container}>
-      <Image 
-      style={styles.image}
-      source={{uri: props.source}}
-      />
-      <Text style={styles.movieTitle}>{ props.title }</Text>
+      <Pressable
+      onPress={(input) => console.log('Movie Pressed')}>
+        <Image 
+        style={styles.image}
+        source={{uri: props.source}}
+        />
+        <Text style={styles.movieTitle}>{ props.title }</Text>
+      </Pressable>
     </View>
   );
 }

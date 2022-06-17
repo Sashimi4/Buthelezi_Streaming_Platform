@@ -45,8 +45,6 @@ export default function HomePage() {
 
         </ScrollView>
 
-        <FooterNav/>
-
       </View>
     );
   }

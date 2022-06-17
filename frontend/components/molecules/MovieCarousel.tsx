@@ -33,7 +33,7 @@ export default function MovieCarousel() {
                 style={styles.image}
                 source={{uri: item.image}}
                 />
-                <Text style={styles.movieTitle}>Movie Title - { item.text }</Text>
+                <Text style={styles.movieTitle}>Coming Soon, { item.text }</Text>
             </View>
         );
     }
@@ -96,5 +96,14 @@ export default function MovieCarousel() {
     },
     movieTitle: {
         color: Colors.WHITE,
+        backgroundColor: Colors.BACKGROUND_BLACK_TINT,
+        position: 'absolute',
+        bottom: '15%',
+        left: '5%',
+        paddingHorizontal: 5,
+        paddingVertical: 8,
+        marginRight: 50,
+        fontWeight: 'bold',
+        fontSize: 15,
     }
   });

@@ -6,15 +6,17 @@ import MovieCarousel from './components/molecules/MovieCarousel'
 import FooterNav from './components/organisms/FooterNav'
 import HomePage from './components/pages/HomePage'
 
-import LoginPage from './components/pages/Loginpage'
-import RegistrationPage from './components/pages/Registrationpage'
+import LoginPage from './components/pages/LoginPage'
+import ProfilePage from './components/pages/ProfilePage'
+import RegistrationPage from './components/pages/RegistrationPage'
 
 export default function App() {
   
   return (
       <>
         <View style={styles.container}>
-          <HomePage/>
+          <ProfilePage/>
+          <FooterNav/>
         </View>
       </>
   );
