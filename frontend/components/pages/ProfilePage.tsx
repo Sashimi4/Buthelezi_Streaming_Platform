@@ -75,6 +75,8 @@ export default function ProfilePage() {
         
         </KeyboardAvoidingView>
 
+        <FooterNav/>
+
       </View>
     );
   }

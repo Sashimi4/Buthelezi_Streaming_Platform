@@ -5,29 +5,38 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 import Colors from '../../assets/Colors'
 
-export default function FooterNav() {
+export default function FooterNav({navigation}) {
   
     return (
       <View style={styles.footerContainer}>
-        <Pressable style={styles.activeFooterIconWrapper}>
+        <Pressable 
+        style={styles.activeFooterIconWrapper}
+        onPress={() => navigation.navigate('Home')}
+        >
           <Icon
             style={styles.activeFooterIcon}
             name='home'
             size={30}/>
         </Pressable>
-        <Pressable style={styles.inactiveFooterIconWrapper}>
+        <Pressable style={styles.inactiveFooterIconWrapper}
+        onPress={() => navigation.navigate('Home')}//temporary
+        >
           <Icon
             style={styles.inactiveFooterIcon}
             name='search'
             size={30}/>
         </Pressable>
-        <Pressable style={styles.inactiveFooterIconWrapper}>
+        <Pressable style={styles.inactiveFooterIconWrapper}
+        onPress={() => navigation.navigate('Home')}//temporary
+        >
           <Icon
             style={styles.inactiveFooterIcon}
             name='download-cloud'
             size={30}/>
         </Pressable>
-        <Pressable style={styles.inactiveFooterIconWrapper}>
+        <Pressable style={styles.inactiveFooterIconWrapper}
+        onPress={() => navigation.navigate('Profile')}
+        >
           <Icon
             style={styles.inactiveFooterIcon}
             name='user'
