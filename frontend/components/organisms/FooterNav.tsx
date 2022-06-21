@@ -39,16 +39,16 @@ export default function FooterNav() {
 
   const styles = StyleSheet.create({
     footerContainer: {
-      paddingBottom: 20,
-      paddingTop: 10,
+      paddingBottom: 15,
+      paddingTop: 8,
       bottom: 0,
       width: '100%',
       position: 'absolute',
       justifyContent: 'center',
       flexDirection: 'row',
       backgroundColor: Colors.LIGHT_BLACK,
-      borderTopRightRadius: 15,
-      borderTopLeftRadius: 15,
+      borderTopRightRadius: 20,
+      borderTopLeftRadius: 20,
       zIndex: 999,
     },
     inactiveFooterIconWrapper: {
@@ -65,7 +65,6 @@ export default function FooterNav() {
     },
     activeFooterIcon: {
       color: Colors.GREEN,
-
     },
     inactiveFooterIcon: {
       color: Colors.WHITE,
