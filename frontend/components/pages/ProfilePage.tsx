@@ -47,7 +47,6 @@ export default function ProfilePage() {
             style={styles.inputFields}
             placeholderTextColor={Colors.OFF_WHITE}
             placeholder="Username"
-            autoFocus={true}
             value={username}
             onChangeText={(input) => setUsername(input)}
             />
@@ -74,8 +73,6 @@ export default function ProfilePage() {
             </Pressable>
         
         </KeyboardAvoidingView>
-
-        <FooterNav/>
 
       </View>
     );
