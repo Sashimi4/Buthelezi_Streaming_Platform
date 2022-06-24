@@ -17,6 +17,7 @@ export default function Navigator() {
     return (
         <NavigationContainer>
             <Tab.Navigator screenOptions={({ route }) => ({
+            headerShown: false,
             tabBarIcon: ({ color }) => {
                 const icons = {
                     Home: 'home',

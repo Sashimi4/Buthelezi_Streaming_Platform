@@ -1,14 +1,37 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ScrollView, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import Colors from '../../assets/Colors'
+import LoadingIcon from '../atoms/LoadingIcon';
 import Logo from '../atoms/Logo';
 import MovieCard from '../atoms/MovieCard';
 import MovieCarousel from '../molecules/MovieCarousel';
 import FooterNav from '../organisms/FooterNav';
 
 export default function HomePage() {
+
+  const [isLoading, setLoading] = useState(true)
+  const [movieData, setMovieData] = useState([])
+
+  useEffect(() => {
+    getMovies();
+  }, [])
+
+  const getMovies = async () => {
+    try { //                        Use actual IP to resolve local host issue
+      const response = await fetch('http://192.168.0.226:8080/movies/here', {
+        method: 'GET',
+        mode: 'cors',
+      });
+      const json = await response.json();
+      setMovieData(json);
+    } catch(error) {
+      //Error Handling here
+    } finally {
+      setLoading(false);
+    }
+  }
 
     return (
       <View style={styles.container}>
@@ -25,10 +48,13 @@ export default function HomePage() {
           style={styles.horizontalMovieList}
           horizontal={true}
           >
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
+            {isLoading ? <LoadingIcon/> : (
+              movieData.map((prop) => {
+                return (
+                  <MovieCard key={prop.id} source={prop.imgUrl} title={prop.title}/>
+                );
+              })
+            )}
           </ScrollView>
 
           <Text style={styles.horizontalMovieListTitle}>New Releases</Text>
