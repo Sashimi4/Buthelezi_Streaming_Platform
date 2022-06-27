@@ -7,7 +7,6 @@ import LoadingIcon from '../atoms/LoadingIcon';
 import Logo from '../atoms/Logo';
 import MovieCard from '../atoms/MovieCard';
 import MovieCarousel from '../molecules/MovieCarousel';
-import FooterNav from '../organisms/FooterNav';
 
 export default function HomePage() {
 

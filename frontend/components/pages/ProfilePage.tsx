@@ -5,7 +5,7 @@ import { Image, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, Vi
 
 import Colors from '../../assets/Colors'
 import Logo from '../atoms/Logo';
-import FooterNav from '../organisms/FooterNav';
+import { useEffect } from 'react';
 
 export default function ProfilePage() {
 
@@ -14,6 +14,41 @@ export default function ProfilePage() {
     const [email, setEmail] = useState('')
 
     const [profilePitureSource, setProfilePitureSource] = useState('https://www.disneyplusinformer.com/wp-content/uploads/2021/12/Encanto-Avatar.png')
+
+    useEffect(() => {
+        getProfile();
+      }, [])
+    
+      const getProfile = async () => {
+        try { //                        Use actual IP to resolve local host issue
+          const response = await fetch('http://192.168.0.226:8080/profile/', {
+            method: 'GET',
+            mode: 'cors',
+          });
+          const json = await response.json();
+          setEmail(json.email);
+          setUsername(json.username);
+          setProfilePitureSource(json.imgUrl);
+        } catch(error) {
+          //Error Handling here
+        } finally {
+          //setLoading(false);
+        }
+      }
+
+      const editProfile = async () => {
+        try { //                        Use actual IP to resolve local host issue
+          const response = await fetch('http://192.168.0.226:8080/profile/', {
+            method: 'PUT',
+            mode: 'cors',
+          });
+          const json = await response.json();
+        } catch(error) {
+          //Error Handling here
+        } finally {
+          //setLoading(false);
+        }
+      }
 
     return (
       <View style={styles.container}>
@@ -129,6 +164,7 @@ export default function ProfilePage() {
     profilePictureImage: {
         height: 110,
         width: 110,
+        borderRadius: 50,
     },
     inputFields: {
         borderRadius: 20,

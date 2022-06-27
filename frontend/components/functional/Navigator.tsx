@@ -6,16 +6,35 @@ import HomePage from '../pages/HomePage'
 import ProfilePage from '../pages/ProfilePage'
 import LoginPage from '../pages/LoginPage'
 import RegistrationPage from '../pages/RegistrationPage'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 
 import Colors from '../../assets/Colors'
+import SearchPage from '../pages/SearchPage'
 
 const Tab = createBottomTabNavigator();
 
+const config = {
+    screens: {
+        Home: {
+            path: 'home',
+        },
+        Search: 'search/:keyword',
+        Downloads: 'downloads',
+        Profile: 'profile',
+        Login: 'login',
+        Registration: 'registration',
+    },
+};
+
+const linking = {
+    prefixes: ['https://streamies.com', 'streamies://'],
+    config,
+}
+
 export default function Navigator() {
     return (
-        <NavigationContainer>
+        <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
             <Tab.Navigator screenOptions={({ route }) => ({
             headerShown: false,
             tabBarIcon: ({ color }) => {
@@ -38,9 +57,10 @@ export default function Navigator() {
             })}
             >
                 <Tab.Screen name="Home" component={HomePage}/>
-                <Tab.Screen name="Search" component={HomePage}/>
+                <Tab.Screen name="Search" component={SearchPage}/>
                 <Tab.Screen name="Downloads" component={HomePage}/>
                 <Tab.Screen name="Profile" component={ProfilePage}/>
+                <Tab.Screen name="Login" component={LoginPage}/>
             </Tab.Navigator>
         </NavigationContainer>
     );

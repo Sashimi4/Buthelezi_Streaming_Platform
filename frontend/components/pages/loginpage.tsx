@@ -1,15 +1,35 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
 import Colors from '../../assets/Colors'
 import Logo from '../atoms/Logo';
+import { AuthContext } from '../functional/AuthContext';
 
 export default function LoginPage() {
 
     const [email, setEmail] = useState('')
 
     const [password, setPassword] = useState('')
+
+    const val = useContext(AuthContext); // => save the found user for quick access
+
+    const performLogin = async () => {
+      try { //                        Use actual IP to resolve double local host issue  
+        const response = await fetch(`http://192.168.0.226:8080/login`, { //issue here if the movie has special characters and 
+          method: 'POST',
+          mode: 'cors',
+          headers: {
+              'Authorization': 'Basic ' + btoa(email + ":" + password)
+          },
+        });
+        const json = await response.json();
+        console.log(json);
+      } catch(error) {
+        console.error(error)
+        //Error Handling here
+      } finally {
+      }
+    }
   
     return (
       <View style={styles.container}>
@@ -44,7 +64,7 @@ export default function LoginPage() {
                 />
             </KeyboardAvoidingView>
 
-            <Pressable style={styles.signInButton}>
+            <Pressable style={styles.signInButton} onPress={performLogin}>
                 <Text style={styles.signInButtonText}>Sign In</Text>
             </Pressable>
 
