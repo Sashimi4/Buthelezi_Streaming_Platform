@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
 
 import HomePage from '../pages/HomePage'
+import DownloadPage from '../pages/DownloadPage'
 import ProfilePage from '../pages/ProfilePage'
 import LoginPage from '../pages/LoginPage'
 import RegistrationPage from '../pages/RegistrationPage'
@@ -11,6 +12,7 @@ import Icon from 'react-native-vector-icons/Feather'
 
 import Colors from '../../assets/Colors'
 import SearchPage from '../pages/SearchPage'
+import MoviePage from '../pages/MoviePage'
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +26,7 @@ const config = {
         Profile: 'profile',
         Login: 'login',
         Registration: 'registration',
+        Movie: 'movie',
     },
 };
 
@@ -58,9 +61,11 @@ export default function Navigator() {
             >
                 <Tab.Screen name="Home" component={HomePage}/>
                 <Tab.Screen name="Search" component={SearchPage}/>
-                <Tab.Screen name="Downloads" component={HomePage}/>
+                <Tab.Screen name="Downloads" component={DownloadPage}/>
                 <Tab.Screen name="Profile" component={ProfilePage}/>
                 <Tab.Screen name="Login" component={LoginPage}/>
+                <Tab.Screen name="Registration" component={RegistrationPage}/>
+                <Tab.Screen name="Movie" component={MoviePage}/>
             </Tab.Navigator>
         </NavigationContainer>
     );

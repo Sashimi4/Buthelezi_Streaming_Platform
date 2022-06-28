@@ -4,13 +4,13 @@ import com.streaming.service.data.Movie;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 public class MovieController {
 
     public MovieController(){
     }
 
     @GetMapping("movies/here")
-    @CrossOrigin(origins = "http://localhost:8080")
     @ResponseBody
     public Movie[] getMovieData() throws InterruptedException {
         Movie[] movies = new Movie[6];
@@ -26,7 +26,6 @@ public class MovieController {
 
 
     @GetMapping("search")
-    @CrossOrigin(origins = "http://localhost:8080")
     @ResponseBody //Will need to be limited to roughly 50 results
     public Movie[] searchMovies(@RequestParam String keyword) throws InterruptedException {
         Movie[] movies = new Movie[6];
