@@ -12,10 +12,10 @@ auth0.webAuth
 
 
 
-export const AuthContext = createContext(auth0);
+//export const AuthContext = createContext(auth0);
 
 export const AuthProvider = ({children}) => {
     return (
-        <AuthContext.Provider value="Test Value">{children}</AuthContext.Provider>
+        <Text>Hello</Text>
     );
 }
