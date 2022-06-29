@@ -8,11 +8,18 @@ import LoadingIcon from '../atoms/LoadingIcon';
 import Logo from '../atoms/Logo';
 import MovieCard from '../atoms/MovieCard';
 
+import * as yup from 'yup'
+import { Formik } from 'formik'
+
 export default function DownloadPage() {
 
-  const [isLoading, setLoading] = useState(false)
+  const searchValidationSchema = yup.object().shape({
+    keyword: yup
+      .string()
+      .required('Search term is Required'),
+  })
 
-  const [keyword, setKeyword] = useState("")
+  const [isLoading, setLoading] = useState(false)
 
   const [searchResults, setSearchResults] = useState([])
 
@@ -40,28 +47,46 @@ export default function DownloadPage() {
 
         <Logo/>
 
-        <KeyboardAvoidingView style={styles.inputFieldWrapper}>
+        <Formik
+            validationSchema={searchValidationSchema}
+            initialValues={{ keyword: ''}}
+            onSubmit={values => console.log(values)}
+            >
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  isValid,
+                }) => (
 
-            <TextInput
-            style={styles.inputFields}
-            placeholderTextColor={Colors.OFF_WHITE}
-            placeholder="Looking for a recent download ..."
-            autoFocus={true}
-            value={keyword}
-            onChangeText={(input) => setKeyword(input)}
-            />
+            <KeyboardAvoidingView style={styles.inputFieldWrapper}>
 
-            <Pressable
-            onPress={getSearchResults}>
-                <Icon
-                style={styles.icon}
-                name='search'
-                color={Colors.GREEN}
-                size={30}
+                <TextInput
+                style={styles.inputFields}
+                placeholderTextColor={Colors.OFF_WHITE}
+                placeholder="Search for your favourites..."
+                autoFocus={true}
+                value={values.keyword}
+                onChangeText={handleChange('keyword')}
+                onBlur={handleBlur('keyword')}
                 />
-            </Pressable>
 
-        </KeyboardAvoidingView>
+                <Pressable
+                onPress={handleSubmit}
+                disabled={!isValid}>
+                    <Icon
+                    style={styles.icon}
+                    name='search'
+                    color={Colors.GREEN}
+                    size={30}
+                    />
+                </Pressable>
+
+            </KeyboardAvoidingView>
+
+            )}
+        </Formik>
 
         <Text style={styles.horizontalMovieListTitle}>Downloads</Text>
 

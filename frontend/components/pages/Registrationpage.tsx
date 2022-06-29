@@ -5,70 +5,117 @@ import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } fr
 import Colors from '../../assets/Colors'
 import Logo from '../atoms/Logo';
 
+import * as yup from 'yup'
+import { Formik } from 'formik'
+
 export default function RegistrationPage() {
 
-    const [email, setEmail] = useState('')
-
-    const [password, setPassword] = useState('')
-
-    const [confirmationPassword, setConfirmationPassword] = useState('')
+    const signUpValidationSchema = yup.object().shape({
+        email: yup
+            .string()
+            .email("Please enter a valid email")
+            .required('Email Address is Required'),
+        password: yup
+            .string()
+            .matches(/\w*[a-z]\w*/,  "Password must have a small letter")
+            .matches(/\w*[A-Z]\w*/,  "Password must have a capital letter")
+            .matches(/\d/, "Password must have a number")
+            .matches(/[!@#$%^&*()\-_"=+{}; :,<.>]/, "Password must have a special character")
+            .min(8, ({ min }) => `Password must be at least ${min} characters`)
+            .required('Password is Required'),
+        confirmPassword: yup
+            .string()
+            .oneOf([yup.ref('password')], 'Passwords do not match')
+            .required('Confirm password is Required'),
+      })
   
     return (
-      <View style={styles.container}>
-        
-        {/* Here comes an image of some sort */}
-        <Logo/>
+        <Formik
+        validationSchema={signUpValidationSchema}
+        initialValues={{ email: '', password: '', confirmPassword: ''}}
+        onSubmit={values => console.log(values)}
+        >
+            {({
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                values,
+                errors,
+                isValid,
+                touched,
+            }) => (
 
-        <View style={styles.contentWrapper}>
+            <View style={styles.container}>
+                
+                <Logo/>
 
-            <KeyboardAvoidingView style={styles.inputFieldWrapper}>
-                <TextInput
-                style={styles.inputFields}
-                placeholderTextColor={Colors.OFF_WHITE}
-                autoComplete='email'
-                placeholder="Email"
-                autoFocus={true}
-                value={email}
-                onChangeText={(input) => setEmail(input)}
-                />
+                <View style={styles.contentWrapper}>
 
-                <TextInput
-                style={styles.inputFields}
-                placeholderTextColor={Colors.OFF_WHITE}
-                autoComplete='password'
-                placeholder="Password"
-                secureTextEntry={true}
-                value={password}
-                onChangeText={(input) => setPassword(input)}
-                />
+                    <KeyboardAvoidingView style={styles.inputFieldWrapper}>
 
-                <View style={styles.errorTextMessageWrapper}>
-                    <Text style={styles.errorTextMessage}>error messages</Text>
+                        <TextInput
+                        style={styles.inputFields}
+                        placeholderTextColor={Colors.OFF_WHITE}
+                        autoComplete='email'
+                        autoFocus={true}
+                        placeholder="Email"
+                        onBlur={handleBlur('email')}
+                        onChangeText={handleChange('email')}
+                        value={values.email}
+                        keyboardType="email-address"
+                        />
+
+                        {errors.email && touched.email &&
+                            <View style={styles.errorTextMessageWrapper}>
+                                <Text style={styles.errorTextMessage}>{errors.email}</Text>
+                            </View>
+                        }
+
+                        <TextInput
+                        style={styles.inputFields}
+                        placeholderTextColor={Colors.OFF_WHITE}
+                        autoComplete='password'
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        value={values.password}
+                        onBlur={handleBlur('password')}
+                        onChangeText={handleChange('password')}
+                        />
+
+                        {errors.password && touched.password &&
+                            <View style={styles.errorTextMessageWrapper}>
+                                <Text style={styles.errorTextMessage}>{errors.password}</Text>
+                            </View>
+                        }
+
+                        <TextInput
+                        style={styles.inputFields}
+                        placeholderTextColor={Colors.OFF_WHITE}
+                        placeholder="Confirm Password"
+                        secureTextEntry={true}
+                        value={values.confirmPassword}
+                        onBlur={handleBlur('confirmPassword')}
+                        onChangeText={handleChange('confirmPassword')}
+                        />
+
+                        {errors.confirmPassword && touched.confirmPassword &&
+                            <View style={styles.errorTextMessageWrapper}>
+                                <Text style={styles.errorTextMessage}>{errors.confirmPassword}</Text>
+                            </View>
+                        }
+                    </KeyboardAvoidingView>
+
+                    <Pressable 
+                    onPress={handleSubmit}
+                    disabled={!isValid}
+                    style={styles.signInButton}>
+                        <Text style={styles.signInButtonText}>Sign up</Text>
+                    </Pressable>
+
                 </View>
-
-                <TextInput
-                style={styles.inputFields}
-                placeholderTextColor={Colors.OFF_WHITE}
-                autoComplete='password'
-                placeholder="Confirm Password"
-                secureTextEntry={true}
-                value={confirmationPassword}
-                onChangeText={(input) => setConfirmationPassword(input)}
-                />
-
-                <View style={styles.errorTextMessageWrapper}>
-                    <Text style={styles.errorTextMessage}>Cofirm error messages</Text>
-                </View>
-            </KeyboardAvoidingView>
-
-            <Pressable style={styles.signInButton}>
-                <Text style={styles.signInButtonText}>Sign up</Text>
-            </Pressable>
-
-        
-
-        </View>
-      </View>
+            </View>
+        )}
+      </Formik>
     );
   }
 

@@ -60,7 +60,8 @@ export default function MoviePage(props) {
         </View>
 
         <View style={styles.buttonLayout}> 
-            <Pressable style={styles.playButtonIconWrapper}>
+            <Pressable
+            style={styles.playButtonIconWrapper}>
                 <Icon
                 name="play-circle"
                 color={Colors.WHITE}

@@ -3,15 +3,30 @@ import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } fr
 
 import Colors from '../../assets/Colors'
 import Logo from '../atoms/Logo';
-import { AuthContext } from '../functional/AuthContext';
+//import { AuthContext } from '../functional/AuthContext';
+
+import * as yup from 'yup'
+import { Formik } from 'formik'
 
 export default function LoginPage() {
 
-    const [email, setEmail] = useState('')
+    const loginValidationSchema = yup.object().shape({
+      email: yup
+        .string()
+        .email("Please enter a valid email")
+        .required('Email Address is Required'),
 
-    const [password, setPassword] = useState('')
+      password: yup
+      .string()
+      .matches(/\w*[a-z]\w*/,  "Password must have a small letter")
+      .matches(/\w*[A-Z]\w*/,  "Password must have a capital letter")
+      .matches(/\d/, "Password must have a number")
+      .matches(/[!@#$%^&*()\-_"=+{}; :,<.>]/, "Password must have a special character")
+      .min(8, ({ min }) => `Password must be at least ${min} characters`)
+      .required('Password is Required')
+    })
 
-    const val = useContext(AuthContext); // => save the found user for quick access
+    //const val = useContext(AuthContext); // => save the found user for quick access
 
     const performLogin = async () => {
       try { //                        Use actual IP to resolve double local host issue  
@@ -32,39 +47,70 @@ export default function LoginPage() {
     }
   
     return (
-      <View style={styles.container}>
+      <Formik
+            validationSchema={loginValidationSchema}
+            initialValues={{ email: '', password: ''}}
+            onSubmit={values => console.log(values)}
+            >
+                {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  errors,
+                  isValid,
+                  touched,
+                }) => (
+
+                
+        <View style={styles.container}>
         
-        <Logo/>
+            <Logo/>
 
-        <View style={styles.contentWrapper}>
+            <View style={styles.contentWrapper}>
 
-            <KeyboardAvoidingView style={styles.inputFieldWrapper}>
-                <TextInput
-                style={styles.inputFields}
-                placeholderTextColor={Colors.OFF_WHITE}
-                autoComplete='email'
-                placeholder="Email"
-                autoFocus={true}
-                value={email}
-                onChangeText={(input) => setEmail(input)}
-                />
+                    <KeyboardAvoidingView style={styles.inputFieldWrapper}>
+                        <TextInput
+                        style={styles.inputFields}
+                        placeholderTextColor={Colors.OFF_WHITE}
+                        autoComplete='email'
+                        autoFocus={true}
+                        placeholder="Email"
+                        onBlur={handleBlur('email')}
+                        onChangeText={handleChange('email')}
+                        value={values.email}
+                        keyboardType="email-address"
+                        />
 
-                <View style={styles.errorTextMessageWrapper}>
-                    <Text style={styles.errorTextMessage}>error messages</Text>
-                </View>
+                        {errors.email && touched.email &&
+                            <View style={styles.errorTextMessageWrapper}>
+                                <Text style={styles.errorTextMessage}>{errors.email}</Text>
+                            </View>
+                        }
 
-                <TextInput
-                style={styles.inputFields}
-                placeholderTextColor={Colors.OFF_WHITE}
-                autoComplete='password'
-                placeholder="Password"
-                secureTextEntry={true}
-                value={password}
-                onChangeText={(input) => setPassword(input)}
-                />
-            </KeyboardAvoidingView>
+                        <TextInput
+                        style={styles.inputFields}
+                        placeholderTextColor={Colors.OFF_WHITE}
+                        autoComplete='password'
+                        placeholder="Password"
+                        onBlur={handleBlur('password')}
+                        onChangeText={handleChange('password')}
+                        value={values.password}
+                        secureTextEntry={true}
+                        />
 
-            <Pressable style={styles.signInButton} onPress={performLogin}>
+                        {errors.password && touched.password &&
+                            <View style={styles.errorTextMessageWrapper}>
+                                <Text style={styles.errorTextMessage}>{errors.password}</Text>
+                            </View>
+                        }
+                        
+                </KeyboardAvoidingView>
+                
+            <Pressable
+            style={styles.signInButton} 
+            onPress={handleSubmit} 
+            disabled={!isValid}>
                 <Text style={styles.signInButtonText}>Sign In</Text>
             </Pressable>
 
@@ -74,6 +120,8 @@ export default function LoginPage() {
 
         </View>
       </View>
+      )}
+      </Formik>
     );
   }
 

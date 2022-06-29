@@ -7,9 +7,15 @@ import Colors from '../../assets/Colors'
 
 export default function BackButton() {
   
+    const navigateBack = () => {
+      console.log('back pressed')
+    }
+
     return (
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.buttonWrapper}>
+        <Pressable 
+        onPress={navigateBack}
+        style={styles.buttonWrapper}>
             <Icon 
             style={styles.buttonIcon}
             name="md-chevron-back-sharp" 
