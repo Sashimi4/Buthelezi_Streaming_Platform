@@ -7,8 +7,11 @@ import Logo from '../atoms/Logo';
 
 import * as yup from 'yup'
 import { Formik } from 'formik'
+import { AuthContext } from '../auth/Context';
 
 export default function RegistrationPage() {
+
+    const { signUp } = React.useContext(AuthContext)
 
     const signUpValidationSchema = yup.object().shape({
         email: yup
@@ -33,7 +36,7 @@ export default function RegistrationPage() {
         <Formik
         validationSchema={signUpValidationSchema}
         initialValues={{ email: '', password: '', confirmPassword: ''}}
-        onSubmit={values => console.log(values)}
+        onSubmit={values => signUp()}
         >
             {({
                 handleChange,

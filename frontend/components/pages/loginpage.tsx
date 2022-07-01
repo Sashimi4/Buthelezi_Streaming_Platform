@@ -7,8 +7,12 @@ import Logo from '../atoms/Logo';
 
 import * as yup from 'yup'
 import { Formik } from 'formik'
+import { useAuth0 } from '@auth0/auth0-react';
+import { AuthContext } from '../auth/Context';
 
 export default function LoginPage() {
+
+    const { signIn } = React.useContext(AuthContext)
 
     const loginValidationSchema = yup.object().shape({
       email: yup
@@ -50,7 +54,7 @@ export default function LoginPage() {
       <Formik
             validationSchema={loginValidationSchema}
             initialValues={{ email: '', password: ''}}
-            onSubmit={values => console.log(values)}
+            onSubmit={values => signIn(values.email, values.password)}
             >
                 {({
                   handleChange,

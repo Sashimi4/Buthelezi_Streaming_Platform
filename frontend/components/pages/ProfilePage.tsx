@@ -3,20 +3,33 @@ import { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { Image, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 
+import * as yup from 'yup'
+import { Formik } from 'formik'
+
 import Colors from '../../assets/Colors'
 import Logo from '../atoms/Logo';
 import { useEffect } from 'react';
+import { ScrollView } from 'react-native';
+import { AuthContext } from '../auth/Context';
 
 export default function ProfilePage() {
 
-    const [username, setUsername] = useState('Gregory64') // default here should be fetched by service
+  const { signOut } = React.useContext(AuthContext)
 
-    const [email, setEmail] = useState('')
-
-    const [profilePitureSource, setProfilePitureSource] = useState('https://www.disneyplusinformer.com/wp-content/uploads/2021/12/Encanto-Avatar.png')
+  const editProfileValidationSchema = yup.object().shape({
+    email: yup
+        .string()
+        .email("Please enter a valid email"),
+    username: yup
+        .string()
+        .matches(/^[a-zA-Z0-9]*/,  "Password must have a small letter")
+        .min(3, ({ min }) => `Passwsord must be at least ${min} characters`),
+    profilePitureSource: yup
+        .string()
+  })
 
     useEffect(() => {
-        getProfile();
+        //getProfile();
       }, [])
     
       const getProfile = async () => {
@@ -26,9 +39,6 @@ export default function ProfilePage() {
             mode: 'cors',
           });
           const json = await response.json();
-          setEmail(json.email);
-          setUsername(json.username);
-          setProfilePitureSource(json.imgUrl);
         } catch(error) {
           //Error Handling here
         } finally {
@@ -51,77 +61,112 @@ export default function ProfilePage() {
       }
 
     return (
-      <View style={styles.container}>
 
-        <Logo/>
+        <Formik
+          validationSchema={editProfileValidationSchema}
+          initialValues={{ email: '', username: '', profilePitureSource: "https://www.disneyplusinformer.com/wp-content/uploads/2021/12/Encanto-Avatar.png"} /* fetch api and fill these inital values */}
+          onSubmit={values => console.log(values)}
+          >
+              {({
+                  handleChange,
+                  handleBlur,
+                  handleSubmit,
+                  values,
+                  errors,
+                  isValid,
+                  touched,
+              }) => (
 
-        <KeyboardAvoidingView style={styles.contentWrapper}>
-            <View style={styles.headerWrapper}>
-                <Pressable style={styles.editIconWraper}
-                onPress={(input) => console.log("Edit")}>
-                    <Icon
-                    style={styles.profilePictureIcon}
-                    name='pencil-plus'
-                    size={25}/>
-                </Pressable>
+          <ScrollView style={styles.contentWrapper}>
 
-                <Image
-                style={styles.profilePictureImage}
-                source={{uri: profilePitureSource}}
-                />
+            <View style={styles.widthShaper}>
 
-                <Text style={styles.pageTitle}>Profile</Text>
-            </View>
+          <Logo/>
 
-            <Text style={styles.descriptionText}>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur reiciendis nulla maiores sint, excepturi commodi.
-            </Text>
-            
+              <View style={styles.headerWrapper}>
+                  <Pressable style={styles.editIconWraper}
+                  onPress={() => console.log("Edit")}>
+                      <Icon
+                      style={styles.profilePictureIcon}
+                      name='pencil-plus'
+                      size={25}/>
+                  </Pressable>
 
-            <TextInput
-            style={styles.inputFields}
-            placeholderTextColor={Colors.OFF_WHITE}
-            placeholder="Username"
-            value={username}
-            onChangeText={(input) => setUsername(input)}
-            />
+                  <Image
+                  style={styles.profilePictureImage}
+                  source={{uri: values.profilePitureSource}}
+                  />
 
-            <View style={styles.errorTextMessageWrapper}>
-                <Text style={styles.errorTextMessage}>error messages</Text>
-            </View>
+                  <Text style={styles.pageTitle}>Profile</Text>
+              </View>
 
-            <TextInput
-            style={styles.inputFields}
-            placeholderTextColor={Colors.OFF_WHITE}
-            autoComplete='email'
-            placeholder="Email"
-            value={email}
-            onChangeText={(input) => setEmail(input)}
-            />
+              <Text style={styles.descriptionText}>
+                      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur reiciendis nulla maiores sint, excepturi commodi.
+              </Text>
+              
+              <TextInput
+              style={styles.inputFields}
+              placeholderTextColor={Colors.OFF_WHITE}
+              placeholder="Username"
+              onBlur={handleBlur('username')}
+              onChangeText={handleChange('username')}
+              value={values.username}
+              />
 
-            <View style={styles.errorTextMessageWrapper}>
-                <Text style={styles.errorTextMessage}>error messages</Text>
-            </View>
+              {errors.username && touched.username &&
+                  <View style={styles.errorTextMessageWrapper}>
+                      <Text style={styles.errorTextMessage}>{errors.username}</Text>
+                  </View>
+              }
 
-            <Pressable style={styles.saveButton}>
-                    <Text style={styles.saveButtonText}>Save</Text>
-            </Pressable>
-        
-        </KeyboardAvoidingView>
+              <TextInput
+              style={styles.inputFields}
+              placeholderTextColor={Colors.OFF_WHITE}
+              autoComplete='email'
+              placeholder="Email"
+              onBlur={handleBlur('email')}
+              onChangeText={handleChange('email')}
+              value={values.email}
+              keyboardType="email-address"
+              />
 
-      </View>
+              {errors.email && touched.email &&
+                  <View style={styles.errorTextMessageWrapper}>
+                      <Text style={styles.errorTextMessage}>{errors.email}</Text>
+                  </View>
+              }
+
+              <Pressable 
+              onPress={handleSubmit}
+              disabled={!isValid} 
+              style={styles.saveButton}>
+                      <Text style={styles.saveButtonText}>Save</Text>
+              </Pressable>
+
+              <Pressable  
+              onPress={() => signOut()}
+              style={styles.logOutButton}>
+                      <Text style={styles.saveButtonText}>Log Out</Text>
+              </Pressable>
+
+              </View>
+
+          </ScrollView>
+
+        )}
+        </Formik>
     );
   }
 
   const styles = StyleSheet.create({
-    container: {
-      backgroundColor: Colors.BACKGROUND_BLACK,
-      flex: 1,
-    },
     contentWrapper: {
-      position: 'relative',
-      width: '80%',
+      backgroundColor: Colors.BACKGROUND_BLACK,
+      width: '100%',
       alignSelf: 'center',
+    },
+    widthShaper: {
+      alignSelf: 'center',
+      width: '80%',
     },
     headerWrapper: {
         flexDirection: 'row',
@@ -149,7 +194,7 @@ export default function ProfilePage() {
         alignItems: 'center',
         borderRadius: 20,
         paddingVertical: 15,
-        marginVertical: 60,
+        marginVertical: 20,
         backgroundColor: Colors.GREEN,
     },
     saveButtonText: {
@@ -157,6 +202,13 @@ export default function ProfilePage() {
         fontSize: 20,
         fontWeight: 'bold',
     },
+    logOutButton: {
+      alignItems: 'center',
+      borderRadius: 20,
+      paddingVertical: 15,
+      marginVertical: 35,
+      backgroundColor: 'red',
+  },
     descriptionText: {
         color: Colors.OFF_WHITE,
         paddingTop: 20,
