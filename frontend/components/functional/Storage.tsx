@@ -1,7 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-
-
 export const storeToken = async (userToken: string) => {
     try{
         userToken = '1234'

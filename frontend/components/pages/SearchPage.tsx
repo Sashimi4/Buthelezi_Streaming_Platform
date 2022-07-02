@@ -29,7 +29,7 @@ export default function SearchPage() {
   const getSearchResults = async () => {
     try { //                        Use actual IP to resolve double local host issue
       setLoading(true);  
-      const response = await fetch(`http://10.62.109.206:8080/search?keyword=${keyword}`, { //issue here if the movie has special characters and 
+      const response = await fetch(`http://192.168.0.226:8080/search?keyword=${keyword}`, { //issue here if the movie has special characters and 
         method: 'GET',
         mode: 'cors',
       });

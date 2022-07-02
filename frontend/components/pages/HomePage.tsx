@@ -19,7 +19,7 @@ export default function HomePage() {
  
   const getMovies = async () => {
     try { //                        Use actual IP to resolve local host issue
-      const response = await fetch('http://10.62.109.206:8080/movies/here', {
+      const response = await fetch('http://192.168.0.226:8080/movies/here', {
         method: 'GET',
         mode: 'cors',
       });

@@ -8,6 +8,7 @@ import Logo from '../atoms/Logo';
 import * as yup from 'yup'
 import { Formik } from 'formik'
 import { AuthContext } from '../auth/Context';
+import { registerUser } from '../functional/PerformRegistration';
 
 export default function RegistrationPage() {
 
@@ -36,7 +37,10 @@ export default function RegistrationPage() {
         <Formik
         validationSchema={signUpValidationSchema}
         initialValues={{ email: '', password: '', confirmPassword: ''}}
-        onSubmit={values => signUp()}
+        onSubmit={values => {
+            registerUser(values.email, values.password)
+            signUp()
+        }}
         >
             {({
                 handleChange,

@@ -14,7 +14,7 @@ public class User {
     @GeneratedValue
     private UUID uuidd;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     public String username;
 
     @Column(nullable = false, unique = true)
@@ -23,11 +23,15 @@ public class User {
     @Column(nullable = true)
     public String imgUrl;
 
-    @JsonIgnore
     @Column(nullable = false)
     public String password;
 
     public User() {}
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = new BCryptPasswordEncoder().encode(password);
+    }
 
     public User(UUID uuid,String email, String username, String imgUrl, String password) {
         this.uuidd = uuid;

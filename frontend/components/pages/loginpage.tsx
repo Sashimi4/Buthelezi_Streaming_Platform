@@ -10,7 +10,7 @@ import { Formik } from 'formik'
 import { useAuth0 } from '@auth0/auth0-react';
 import { AuthContext } from '../auth/Context';
 
-export default function LoginPage() {
+export default function LoginPage( { navigation } ) {
 
     const { signIn } = React.useContext(AuthContext)
 
@@ -29,8 +29,6 @@ export default function LoginPage() {
       .min(8, ({ min }) => `Password must be at least ${min} characters`)
       .required('Password is Required')
     })
-
-    //const val = useContext(AuthContext); // => save the found user for quick access
 
     const performLogin = async () => {
       try { //                        Use actual IP to resolve double local host issue  
@@ -119,10 +117,14 @@ export default function LoginPage() {
             </Pressable>
 
             <View style={styles.registrationTextWrapper}>
-                <Text style={styles.registrationText}>New to *Company name* ?</Text><Text style={styles.registrationLink}> Sign Up now</Text>
+                <Text style={styles.registrationText}>New to *Company name* ?</Text>
+                <Pressable onPress={navigation.navigate('Registration')}>
+                  <Text style={styles.registrationLink}>Sign Up now</Text>
+                </Pressable>
             </View>
 
         </View>
+
       </View>
       )}
       </Formik>

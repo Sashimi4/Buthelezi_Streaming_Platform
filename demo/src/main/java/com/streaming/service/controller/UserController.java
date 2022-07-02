@@ -21,22 +21,33 @@ public class UserController {
     }
 
     //Test endpoint for test us
-    @GetMapping("profile/")
+    @GetMapping("profile")
     @ResponseBody
     public User getTempUser() {
         return new User(UUID.randomUUID(),"cool.guy@gmail.com","Jimmy5","https://i.pinimg.com/736x/09/5b/64/095b641e4ec37c558328c2dcf8d7cefc.jpg","1234Pass");
     }
 
+
     //Test endpoint
-    @GetMapping("allusers/")
+    @GetMapping("allusers")
     @ResponseBody
     public List<User> getAllUser() {
         return userService.getAllUsers();
     }
 
 
+    @PostMapping("users/registration")
+    @ResponseBody
+    public ResponseEntity<User> registrateUser(@RequestBody User user) {
+        if(userService.registerUser(user)) {
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(user, HttpStatus.CONFLICT);
+    }
+
+
     //Test endpoint for test us
-    @PostMapping("login/")
+    @PostMapping("login")
     @ResponseBody
     public ResponseEntity<String> loginUser(@RequestHeader("Authorization") String content) {
         System.out.println(content);

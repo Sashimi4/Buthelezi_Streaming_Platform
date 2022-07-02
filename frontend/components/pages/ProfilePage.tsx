@@ -34,7 +34,7 @@ export default function ProfilePage() {
     
       const getProfile = async () => {
         try { //                        Use actual IP to resolve local host issue
-          const response = await fetch('http://10.62.109.206:8080/profile/', {
+          const response = await fetch('http://192.168.0.226:8080/profile/', {
             method: 'GET',
             mode: 'cors',
           });
