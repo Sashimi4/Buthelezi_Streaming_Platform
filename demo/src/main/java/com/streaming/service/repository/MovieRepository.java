@@ -1,7 +1,11 @@
-/*package com.streaming.service.repository;
+package com.streaming.service.repository;
 
+import com.streaming.service.data.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface MovieRepository extends JpaRepository {
 
-}*/
+@Repository
+public interface MovieRepository extends JpaRepository<Movie, Integer> {
+
+}

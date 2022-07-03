@@ -10,14 +10,14 @@ import Icon from 'react-native-vector-icons/Feather'
 import Colors from '../../assets/Colors'
 import SearchPage from '../pages/SearchPage'
 import MoviePage from '../pages/MoviePage'
-import ProfilePictureSelectionPage from '../pages/ProfilePictureSelectionPage'
+import PictureSelectionPage from '../pages/PictureSelectionPage'
 import VideoPlayerPage from '../pages/VideoPlayerPage'
 
 const Tab = createBottomTabNavigator();
 
 export default function AuthenticatedNavigator() {
     return (
-        <Tab.Navigator tabBar={props => <BottomTabBar {...props} state={{...props.state, routes: props.state.routes.slice(0,5)}}></BottomTabBar>}
+        <Tab.Navigator
         screenOptions={({ route }) => ({
             headerShown: false,
             tabBarIcon: ({ color }) => {
@@ -43,9 +43,9 @@ export default function AuthenticatedNavigator() {
                 <Tab.Screen name="Search" component={SearchPage}/>
                 <Tab.Screen name="Downloads" component={DownloadPage}/>
                 <Tab.Screen name="Profile" component={ProfilePage}/>
-                <Tab.Screen name="ProfilePictureSelection" component={ProfilePictureSelectionPage}/>
-                <Tab.Screen name="Movie" component={MoviePage}/>
-                <Tab.Screen name="VideoPlayer" component={VideoPlayerPage}/>
+                <Tab.Screen name="PictureSelection" component={PictureSelectionPage}/>
+                <Tab.Screen name="Movie" component={MoviePage} options={{ tabBarButton: () => null, tabBarVisible: false, }}/>
+                <Tab.Screen name="VideoPlayer" component={VideoPlayerPage} options={{ tabBarButton: () => null, tabBarVisible: false, }}/>
         </Tab.Navigator>
     );
 }

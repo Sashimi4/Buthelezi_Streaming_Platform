@@ -9,12 +9,14 @@ export default function MovieCard(props) {
   return (
     <View style={styles.container}>
       <Pressable
-      onPress={props.navigation.navigate('Movie')}>
+      onPress={() => props.navigation.navigate('Movie', {
+        movie: props.movieData
+      })}>
         <Image 
         style={styles.image}
-        source={{uri: props.source}}
+        source={{uri: props.movieData.imgUrl}}
         />
-        <Text style={styles.movieTitle}>{ props.title }</Text>
+        <Text numberOfLines={1} style={styles.movieTitle}>{ props.movieData.title }</Text>
       </Pressable>
     </View>
   );
@@ -39,5 +41,6 @@ export default function MovieCard(props) {
       fontWeight: 'bold',
       alignSelf: 'flex-start',
       paddingHorizontal: 8,
+      flexWrap: 'wrap',
     }
   });

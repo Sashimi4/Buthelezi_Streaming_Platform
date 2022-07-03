@@ -12,8 +12,10 @@ import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import { AuthContext } from '../auth/Context';
 
-export default function ProfilePage( { navigation } ) {
+export default function ProfilePage( { route, navigation } ) {
 
+  const [ newProfilePictureSrc, setNewProfilePictureSrc ] = useState('https://external-preview.redd.it/ezVku7xWOYkKreYkAzi28nUYCagZtEHKZVn3X1EWKBQ.jpg?auto=webp&s=a0e1df8241f94b01fda64b18dac53e7820d029a2')
+  
   const { signOut } = React.useContext(AuthContext)
 
   const editProfileValidationSchema = yup.object().shape({
@@ -29,14 +31,13 @@ export default function ProfilePage( { navigation } ) {
   })
 
     useEffect(() => {
-        //getProfile();
-      }, [])
+      }, [newProfilePictureSrc])
 
+      
     return (
-
         <Formik
           validationSchema={editProfileValidationSchema}
-          initialValues={{ email: '', username: '', profilePitureSource: "https://www.disneyplusinformer.com/wp-content/uploads/2021/12/Encanto-Avatar.png"} /* fetch api and fill these inital values */}
+          initialValues={{ email: '', username: '', profilePitureSource: newProfilePictureSrc} /* fetch api and fill these inital values */}
           onSubmit={values => console.log(values)}
           >
               {({
@@ -57,7 +58,7 @@ export default function ProfilePage( { navigation } ) {
 
               <View style={styles.headerWrapper}>
                   <Pressable style={styles.editIconWraper}
-                  onPress={navigation.navigate('ProfilePictureSelection')}>
+                  onPress={() => navigation.navigate('PictureSelection')}>
                       <Icon
                       style={styles.profilePictureIcon}
                       name='pencil-plus'
@@ -188,7 +189,7 @@ export default function ProfilePage( { navigation } ) {
     profilePictureImage: {
         height: 110,
         width: 110,
-        borderRadius: 50,
+        borderRadius: 65,
     },
     inputFields: {
         borderRadius: 20,

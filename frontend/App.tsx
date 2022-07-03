@@ -63,7 +63,7 @@ export default function App() {
           Movie: 'movie',
           Login: 'login',
           Registration: 'registration',
-          ProfilePictureSelection: 'profilePictureSelection',
+          PictureSelection: 'pictureSelection',
           VideoPlayer: 'videoPlayer'
       },
   };

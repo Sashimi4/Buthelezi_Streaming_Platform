@@ -11,7 +11,7 @@ import MovieCard from '../atoms/MovieCard';
 import * as yup from 'yup'
 import { Formik } from 'formik'
 
-export default function DownloadPage() {
+export default function DownloadPage({navigation}) {
 
   const searchValidationSchema = yup.object().shape({
     keyword: yup
@@ -91,8 +91,8 @@ export default function DownloadPage() {
         <Text style={styles.horizontalMovieListTitle}>Downloads</Text>
 
         <ScrollView style={styles.contentWrapper}>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
         </ScrollView>
 
       </View>

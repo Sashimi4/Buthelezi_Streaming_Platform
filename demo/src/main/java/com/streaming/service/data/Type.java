@@ -1,6 +1,10 @@
 package com.streaming.service.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "media_type")
@@ -12,6 +16,11 @@ public class Type {
 
     @Column(nullable = false, unique = true)
     public String mediaType;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "movie_type_relation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "id_type", nullable = false)
+    public Set<Type> movie_type_relation = new HashSet<>();
 
     public Type() {
     }

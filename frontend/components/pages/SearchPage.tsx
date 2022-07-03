@@ -12,7 +12,7 @@ import * as yup from 'yup'
 import { Formik } from 'formik'
 import { searchMovie } from '../functional/PerformSearch';
 
-export default function SearchPage() {
+export default function SearchPage({navigation}) {
 
   const searchValidationSchema = yup.object().shape({
     keyword: yup
@@ -84,7 +84,7 @@ export default function SearchPage() {
         {isLoading ? <LoadingIcon/> : (
             searchResults.map((prop) => {
                 return (
-                  <MovieCard key={prop.id} source={prop.imgUrl} title={prop.title}/>
+                  <MovieCard key={prop.id} source={prop.imgUrl} title={prop.title} navigation={navigation}/>
                 );
             })
         )}

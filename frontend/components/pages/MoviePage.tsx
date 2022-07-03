@@ -7,43 +7,48 @@ import Colors from '../../assets/Colors'
 import BackButton from '../atoms/BackButton';
 import LoadingIcon from '../atoms/LoadingIcon';
 import Logo from '../atoms/Logo';
-import MovieCard from '../atoms/MovieCard';
-import { fetchMovie } from '../functional/PerformMovieDataFetch';
 
-export default function MoviePage(props) {
+export default function MoviePage( {route, navigation}) {
 
   const [isLoading, setLoading] = useState(false)
 
-  const [keyword, setKeyword] = useState("")
-
-  const [movieData, setMovieData] = useState([])
+  console.log(route.params.movie.title)
 
   useEffect(() => {
-    //fetch all movie data and assign it:
-    //setMovieData(fetchMovie)
   }, [])
 
     return (
       <View style={styles.container}>
 
-      <BackButton destination={'Home'} navigation={props.navigation}/>
+      <BackButton destination={'Home'} navigation={navigation}/>
       <ScrollView>
 
         <View style={styles.headerWrapper}>
-            <Text style={styles.movieTitle}>Doctor Strange in the Multiveres of Madness</Text>
+            <Text style={styles.movieTitle}>{route.params.movie.title}</Text>
         </View>
 
         <View style={styles.imageWrapper}>
             <Image 
             style={styles.image}
-            source={{uri: "https://media.services.cinergy.ch/media/box1600/d51b1becce26054a02d9edd961dcec4b4fb36772.jpg"}}//{{uri: props.source}}
+            source={{uri: route.params.movie.imgUrl}}
             />
         </View>
 
         <View style={styles.movieAttributesWrapper}>
-            <Text style={styles.movieAttributeText}> 2021 |</Text>
-            <Text style={styles.movieAttributeText}> 125 min |</Text>
+            <Text style={styles.movieAttributeText}> {route.params.movie.release_year}</Text>
+            <Text style={styles.movieAttributeText}>|</Text>
+            <Text style={styles.movieAttributeText}> {route.params.movie.runtime} min</Text>
+            <Text style={styles.movieAttributeText}>|</Text>
             <Text style={styles.movieAttributeText}> Action Genre</Text>
+        </View>
+
+        <View style={styles.movieRatingsWrapper}>
+            <Icon
+            name="star"
+            color={'gold'}
+            size={30}
+            />
+            <Text style={styles.movieRatingsText}> {route.params.movie.rating}</Text>
         </View>
 
         <View style={styles.buttonLayout}> 
@@ -74,16 +79,7 @@ export default function MoviePage(props) {
 
         <View style={styles.descriptionWrapper}>
             <Text style={styles.descriptionTitle}>Description</Text>
-            <Text style={styles.description}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas aut, sint totam itaque inventore cupiditate, eum quibusdam porro magnam sunt ipsum maiores voluptatum tempora ipsam iusto non? Eveniet, deserunt amet.</Text>
-        </View>
-        <View style={styles.descriptionWrapper}>
-            <Text style={styles.description}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas aut, sint totam itaque inventore cupiditate, eum quibusdam porro magnam sunt ipsum maiores voluptatum tempora ipsam iusto non? Eveniet, deserunt amet.</Text>
-        </View>
-        <View style={styles.descriptionWrapper}>
-            <Text style={styles.description}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas aut, sint totam itaque inventore cupiditate, eum quibusdam porro magnam sunt ipsum maiores voluptatum tempora ipsam iusto non? Eveniet, deserunt amet.</Text>
-        </View>
-        <View style={styles.descriptionWrapper}>
-            <Text style={styles.description}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas aut, sint totam itaque inventore cupiditate, eum quibusdam porro magnam sunt ipsum maiores voluptatum tempora ipsam iusto non? Eveniet, deserunt amet.</Text>
+            <Text style={styles.description}>{route.params.movie.description}</Text>
         </View>
 
       </ScrollView>
@@ -140,6 +136,18 @@ export default function MoviePage(props) {
         color: Colors.OFF_WHITE,
         fontWeight: 'bold',
     },
+    movieRatingsWrapper: {
+        flexDirection: 'row',
+        alignSelf: 'center',
+        width: '20%',
+        justifyContent: 'space-evenly',
+        padding: 10,
+    },
+    movieRatingsText: {
+        color: 'gold',
+        fontWeight: 'bold',
+        fontSize: 25,
+    },
     buttonLayout: {
         flexDirection: 'row',
         justifyContent: 'flex-start',
@@ -161,6 +169,7 @@ export default function MoviePage(props) {
     },
     descriptionWrapper: {
         margin: 20,
+        paddingBottom: 20,
     },
     descriptionTitle: {
         color: Colors.WHITE,

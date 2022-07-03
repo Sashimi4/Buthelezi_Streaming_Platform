@@ -27,7 +27,6 @@ export default function HomePage({navigation}) {
       setMovieData(json);
     } catch(error) {
       console.error();
-      //Error Handling here
     } finally {
       setLoading(false);
     }
@@ -51,23 +50,12 @@ export default function HomePage({navigation}) {
             {isLoading ? <LoadingIcon/> : (
               movieData.map((prop) => {
                 return (
-                  <MovieCard key={prop.id} source={prop.imgUrl} title={prop.title} navigation={navigation}/>
+                  <MovieCard key={prop.id} movieData={prop} navigation={navigation}/>
                 );
               })
             )}
           </ScrollView>
 
-          <Text style={styles.horizontalMovieListTitle}>New Releases</Text>
-
-          <ScrollView
-          style={styles.horizontalMovieList}
-          horizontal={true}
-          >
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
-          </ScrollView>
 
         </ScrollView>
 

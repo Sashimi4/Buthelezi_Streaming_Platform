@@ -1,22 +1,66 @@
 package com.streaming.service.data;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "movie")
 public class Movie {
 
-    private int id;
+    @Id
+    @GeneratedValue
+    private Integer id;
+
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
+    private String release_year;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
+    private Integer runtime;
+
+    @Column(nullable = false)
     private String imgUrl;
 
-    public Movie(int id, String title, String imgUrl) {
-        this.id = id;
-        this.title = title;
-        this.imgUrl = imgUrl;
+    @Column(nullable = false)
+    private Long rating;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_type")
+    private Movie movie_type_relation;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "movie_movie_relation", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "id_movie", nullable = false)
+    public Set<Movie> movie_movie_relation = new HashSet<>();
+
+    public Movie() {
     }
 
-    public int getId() {
+    public Movie(Integer id, String title, String release_year, String description, Integer runtime, String imgUrl, Long rating) {
+        this.id = id;
+        this.title = title;
+        this.release_year = release_year;
+        this.description = description;
+        this.runtime = runtime;
+        this.imgUrl = imgUrl;
+        this.rating = rating;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -34,5 +78,37 @@ public class Movie {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getRelease_year() {
+        return release_year;
+    }
+
+    public void setRelease_year(String release_year) {
+        this.release_year = release_year;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Integer getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
+    }
+
+    public Long getRating() {
+        return rating;
+    }
+
+    public void setRating(Long rating) {
+        this.rating = rating;
     }
 }
