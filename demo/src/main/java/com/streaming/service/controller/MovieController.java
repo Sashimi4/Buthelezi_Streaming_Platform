@@ -18,7 +18,7 @@ public class MovieController {
         this.movieService = movieServiceService;
     }
 
-    @GetMapping("movies/here")
+    @GetMapping("movies")
     @ResponseBody
     public List<Movie> getMovieData() throws InterruptedException {
         Thread.sleep(3000); //testing loading icon

@@ -91,8 +91,13 @@ export default function DownloadPage({navigation}) {
         <Text style={styles.horizontalMovieListTitle}>Downloads</Text>
 
         <ScrollView style={styles.contentWrapper}>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
+                {isLoading ? <LoadingIcon/> : (
+                    searchResults.map((prop) => {
+                        return (
+                          <MovieCard key={prop.id} movieData={prop} navigation={navigation} destination={'Search'}/>
+                        );
+                    })
+                )}
         </ScrollView>
 
       </View>

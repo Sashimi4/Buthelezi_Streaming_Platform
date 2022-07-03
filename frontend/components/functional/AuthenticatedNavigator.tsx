@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { BottomTabBar, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
-import HomePage from '../pages/HomePage'
-import DownloadPage from '../pages/DownloadPage'
-import ProfilePage from '../pages/ProfilePage'
 import { StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 
 import Colors from '../../assets/Colors'
+
+import HomePage from '../pages/HomePage'
+import DownloadPage from '../pages/DownloadPage'
+import ProfilePage from '../pages/ProfilePage'
 import SearchPage from '../pages/SearchPage'
 import MoviePage from '../pages/MoviePage'
 import PictureSelectionPage from '../pages/PictureSelectionPage'
@@ -43,7 +43,7 @@ export default function AuthenticatedNavigator() {
                 <Tab.Screen name="Search" component={SearchPage}/>
                 <Tab.Screen name="Downloads" component={DownloadPage}/>
                 <Tab.Screen name="Profile" component={ProfilePage}/>
-                <Tab.Screen name="PictureSelection" component={PictureSelectionPage}/>
+                <Tab.Screen name="PictureSelection" component={PictureSelectionPage} options={{ tabBarButton: () => null, tabBarVisible: false, }}/>
                 <Tab.Screen name="Movie" component={MoviePage} options={{ tabBarButton: () => null, tabBarVisible: false, }}/>
                 <Tab.Screen name="VideoPlayer" component={VideoPlayerPage} options={{ tabBarButton: () => null, tabBarVisible: false, }}/>
         </Tab.Navigator>

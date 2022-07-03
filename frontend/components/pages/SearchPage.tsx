@@ -12,7 +12,7 @@ import * as yup from 'yup'
 import { Formik } from 'formik'
 import { searchMovie } from '../functional/PerformSearch';
 
-export default function SearchPage({navigation}) {
+export default function SearchPage( { navigation } ) {
 
   const searchValidationSchema = yup.object().shape({
     keyword: yup
@@ -80,14 +80,18 @@ export default function SearchPage({navigation}) {
 
         <Text style={styles.horizontalMovieListTitle}>Results</Text>
 
-        <ScrollView style={styles.contentWrapper}>
-        {isLoading ? <LoadingIcon/> : (
-            searchResults.map((prop) => {
-                return (
-                  <MovieCard key={prop.id} source={prop.imgUrl} title={prop.title} navigation={navigation}/>
-                );
-            })
-        )}
+        <ScrollView >
+
+            <View style={styles.contentWrapper}>
+                {isLoading ? <LoadingIcon/> : (
+                    searchResults.map((prop) => {
+                        return (
+                          <MovieCard key={prop.id} movieData={prop} navigation={navigation} destination={'Search'}/>
+                        );
+                    })
+                )}
+            </View>
+
         </ScrollView>
 
       </View>
@@ -100,11 +104,11 @@ export default function SearchPage({navigation}) {
       flex: 1,
     },
     contentWrapper: {
-      alignSelf: 'center',
-      flexDirection: 'row',
       width: '90%',
-      backgroundColor: 'red',
       flexWrap: 'wrap',
+      alignSelf: 'center',
+      justifyContent: 'space-evenly',
+      backgroundColor: 'red',
     },
     horizontalMovieListTitle: {
       color: Colors.WHITE,

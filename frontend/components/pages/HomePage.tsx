@@ -19,7 +19,7 @@ export default function HomePage({navigation}) {
  
   const getMovies = async () => {
     try { //                        Use actual IP to resolve local host issue
-      const response = await fetch('http://192.168.0.226:8080/movies/here', {
+      const response = await fetch('http://192.168.0.226:8080/movies', {
         method: 'GET',
         mode: 'cors',
       });
@@ -50,7 +50,7 @@ export default function HomePage({navigation}) {
             {isLoading ? <LoadingIcon/> : (
               movieData.map((prop) => {
                 return (
-                  <MovieCard key={prop.id} movieData={prop} navigation={navigation}/>
+                  <MovieCard key={prop.id} movieData={prop} navigation={navigation} destination={'Home'}/>
                 );
               })
             )}

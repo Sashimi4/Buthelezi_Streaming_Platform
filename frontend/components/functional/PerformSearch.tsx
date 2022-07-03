@@ -9,11 +9,9 @@ export const searchMovie = async (keyword: string) => {
             'Content-Type': 'application/json'
           },
         });
-        const json = await response.json();
-        console.log(json)
-        return json;
+        const json = await response.json()
+        return json
       } catch(e) {
         console.error(`Search failed : ${e}`)
-        return []
       }
 }

@@ -20,7 +20,10 @@ public class UserController {
         this.userService= userService;
     }
 
-    //Test endpoint for test us
+    /**
+     *
+     * @return
+     */
     @GetMapping("profile")
     @ResponseBody
     public User getTempUser() {

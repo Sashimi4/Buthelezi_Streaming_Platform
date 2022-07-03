@@ -10,13 +10,14 @@ export default function MovieCard(props) {
     <View style={styles.container}>
       <Pressable
       onPress={() => props.navigation.navigate('Movie', {
-        movie: props.movieData
+        movie: props.movieData,
+        destination: props.destination,
       })}>
         <Image 
         style={styles.image}
         source={{uri: props.movieData.imgUrl}}
         />
-        <Text numberOfLines={1} style={styles.movieTitle}>{ props.movieData.title }</Text>
+        <Text numberOfLines={1} style={styles.movieTitle}>{props.movieData.title }</Text>
       </Pressable>
     </View>
   );

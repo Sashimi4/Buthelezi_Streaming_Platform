@@ -96,7 +96,7 @@ export default function LoginPage( { navigation } ) {
 
                 <View style={styles.registrationTextWrapper}>
                   <Text style={styles.registrationText}>New to *Company name* ?</Text>
-                  <Pressable style={styles.registrationLinkWrapper} onPress={navigation.navigate('Registration')}>
+                  <Pressable style={styles.registrationLinkWrapper} onPress={() => navigation.navigate('Registration')}>
                     <Text style={styles.registrationLink}>Sign Up now</Text>
                   </Pressable>
                 </View>
@@ -151,9 +151,6 @@ export default function LoginPage( { navigation } ) {
         backgroundColor: Colors.LIGHT_BLACK,
         color: Colors.WHITE,
     },
-    image: {
-        backgroundColor: 'yellow',
-    },
     errorTextMessageWrapper: {
         backgroundColor: Colors.BACKGROUND_BLACK,
         borderRadius: 20,
@@ -178,7 +175,6 @@ export default function LoginPage( { navigation } ) {
         fontWeight: 'bold',
     },
     registrationLinkWrapper: {
-      backgroundColor: 'red',
       paddingVertical: 5,
       width: '40%'
     },

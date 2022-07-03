@@ -1,26 +1,16 @@
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { Image, ScrollView, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Image, ScrollView, Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather'
 
 import Colors from '../../assets/Colors'
 import BackButton from '../atoms/BackButton';
-import LoadingIcon from '../atoms/LoadingIcon';
-import Logo from '../atoms/Logo';
 
 export default function MoviePage( {route, navigation}) {
-
-  const [isLoading, setLoading] = useState(false)
-
-  console.log(route.params.movie.title)
-
-  useEffect(() => {
-  }, [])
 
     return (
       <View style={styles.container}>
 
-      <BackButton destination={'Home'} navigation={navigation}/>
+      <BackButton destination={route.params.destination} navigation={navigation}/>
       <ScrollView>
 
         <View style={styles.headerWrapper}>
@@ -53,6 +43,10 @@ export default function MoviePage( {route, navigation}) {
 
         <View style={styles.buttonLayout}> 
             <Pressable
+            onPress={() => navigation.navigate("VideoPlayer", {
+                movieTitle: route.params.movie.title,
+                videoSrc: route.params.movie.videoUrl,
+            })}
             style={styles.playButtonIconWrapper}>
                 <Icon
                 name="play-circle"
@@ -114,7 +108,6 @@ export default function MoviePage( {route, navigation}) {
       marginVertical: 15,
     },
     imageWrapper: {
-        backgroundColor: 'green',
         width: '90%',
         alignSelf: 'center',
         paddingVertical: 10,

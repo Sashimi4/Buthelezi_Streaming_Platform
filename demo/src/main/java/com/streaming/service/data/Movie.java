@@ -31,6 +31,9 @@ public class Movie {
     private String imgUrl;
 
     @Column(nullable = false)
+    private String videoUrl;
+
+    @Column(nullable = false)
     private Long rating;
 
     @JsonIgnore
@@ -46,14 +49,23 @@ public class Movie {
     public Movie() {
     }
 
-    public Movie(Integer id, String title, String release_year, String description, Integer runtime, String imgUrl, Long rating) {
+    public Movie(Integer id, String title, String release_year, String description, Integer runtime, String imgUrl, String videoUrl, Long rating) {
         this.id = id;
         this.title = title;
         this.release_year = release_year;
         this.description = description;
         this.runtime = runtime;
         this.imgUrl = imgUrl;
+        this.videoUrl = videoUrl;
         this.rating = rating;
+    }
+
+    public String getVideoUrl() {
+        return videoUrl;
+    }
+
+    public void setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
     }
 
     public Integer getId() {

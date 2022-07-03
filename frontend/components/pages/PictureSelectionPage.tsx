@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Image, ScrollView, KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Image, ScrollView, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import Colors from '../../assets/Colors'
 import BackButton from '../atoms/BackButton';
@@ -43,8 +43,6 @@ export default function PictureSelectionPage( { navigation } ) {
                   source={{uri: 'https://featuredanimation.com/wp-content/uploads/2022/02/Violet-Disney-Plus-Icon.jpg'}}
                   />
                 </Pressable>
-
-                
 
               </View>
 
