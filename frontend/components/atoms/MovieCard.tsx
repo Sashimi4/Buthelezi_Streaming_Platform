@@ -9,7 +9,7 @@ export default function MovieCard(props) {
   return (
     <View style={styles.container}>
       <Pressable
-      onPress={(input) => console.log('Movie Pressed')}>
+      onPress={props.navigation.navigate('Movie')}>
         <Image 
         style={styles.image}
         source={{uri: props.source}}

@@ -1,6 +1,5 @@
 import * as React from 'react'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { NavigationContainer } from '@react-navigation/native'
+import { BottomTabBar, createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import HomePage from '../pages/HomePage'
 import DownloadPage from '../pages/DownloadPage'
@@ -11,14 +10,15 @@ import Icon from 'react-native-vector-icons/Feather'
 import Colors from '../../assets/Colors'
 import SearchPage from '../pages/SearchPage'
 import MoviePage from '../pages/MoviePage'
-import VideoPlayer from '../pages/VideoPlayerPage'
+import ProfilePictureSelectionPage from '../pages/ProfilePictureSelectionPage'
 import VideoPlayerPage from '../pages/VideoPlayerPage'
 
 const Tab = createBottomTabNavigator();
 
 export default function AuthenticatedNavigator() {
     return (
-        <Tab.Navigator screenOptions={({ route }) => ({
+        <Tab.Navigator tabBar={props => <BottomTabBar {...props} state={{...props.state, routes: props.state.routes.slice(0,5)}}></BottomTabBar>}
+        screenOptions={({ route }) => ({
             headerShown: false,
             tabBarIcon: ({ color }) => {
                 const icons = {
@@ -43,6 +43,7 @@ export default function AuthenticatedNavigator() {
                 <Tab.Screen name="Search" component={SearchPage}/>
                 <Tab.Screen name="Downloads" component={DownloadPage}/>
                 <Tab.Screen name="Profile" component={ProfilePage}/>
+                <Tab.Screen name="ProfilePictureSelection" component={ProfilePictureSelectionPage}/>
                 <Tab.Screen name="Movie" component={MoviePage}/>
                 <Tab.Screen name="VideoPlayer" component={VideoPlayerPage}/>
         </Tab.Navigator>

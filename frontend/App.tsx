@@ -4,8 +4,6 @@ import { StyleSheet, Text, View } from 'react-native'
 
 import AuthenticatedNavigator from './components/functional/AuthenticatedNavigator'
 import UnauthenticatedNavigator from './components/functional/UnauthenticatedNavigator'
-import { Router } from 'react-router-dom'
-import { Auth0Provider } from '@auth0/auth0-react'
 import { NavigationContainer } from '@react-navigation/native'
 import LoadingIcon from './components/atoms/LoadingIcon'
 import Colors from './assets/Colors'
@@ -65,6 +63,7 @@ export default function App() {
           Movie: 'movie',
           Login: 'login',
           Registration: 'registration',
+          ProfilePictureSelection: 'profilePictureSelection',
           VideoPlayer: 'videoPlayer'
       },
   };

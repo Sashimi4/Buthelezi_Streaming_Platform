@@ -9,6 +9,7 @@ import * as yup from 'yup'
 import { Formik } from 'formik'
 import { useAuth0 } from '@auth0/auth0-react';
 import { AuthContext } from '../auth/Context';
+import { loginUser } from '../functional/PerformLogin';
 
 export default function LoginPage( { navigation } ) {
 
@@ -29,30 +30,15 @@ export default function LoginPage( { navigation } ) {
       .min(8, ({ min }) => `Password must be at least ${min} characters`)
       .required('Password is Required')
     })
-
-    const performLogin = async () => {
-      try { //                        Use actual IP to resolve double local host issue  
-        const response = await fetch(`http://192.168.0.226:8080/login`, { //issue here if the movie has special characters and 
-          method: 'POST',
-          mode: 'cors',
-          headers: {
-              'Authorization': 'Basic ' + btoa(email + ":" + password)
-          },
-        });
-        const json = await response.json();
-        console.log(json);
-      } catch(error) {
-        console.error(error)
-        //Error Handling here
-      } finally {
-      }
-    }
   
     return (
       <Formik
             validationSchema={loginValidationSchema}
             initialValues={{ email: '', password: ''}}
-            onSubmit={values => signIn(values.email, values.password)}
+            onSubmit={values => {
+              loginUser(values.email, values.password)
+              signIn(values.email, values.password)//if succesful call signIn
+            }}
             >
                 {({
                   handleChange,
@@ -64,7 +50,6 @@ export default function LoginPage( { navigation } ) {
                   touched,
                 }) => (
 
-                
         <View style={styles.container}>
         
             <Logo/>
@@ -108,6 +93,13 @@ export default function LoginPage( { navigation } ) {
                         }
                         
                 </KeyboardAvoidingView>
+
+                <View style={styles.registrationTextWrapper}>
+                  <Text style={styles.registrationText}>New to *Company name* ?</Text>
+                  <Pressable style={styles.registrationLinkWrapper} onPress={navigation.navigate('Registration')}>
+                    <Text style={styles.registrationLink}>Sign Up now</Text>
+                  </Pressable>
+                </View>
                 
             <Pressable
             style={styles.signInButton} 
@@ -115,13 +107,6 @@ export default function LoginPage( { navigation } ) {
             disabled={!isValid}>
                 <Text style={styles.signInButtonText}>Sign In</Text>
             </Pressable>
-
-            <View style={styles.registrationTextWrapper}>
-                <Text style={styles.registrationText}>New to *Company name* ?</Text>
-                <Pressable onPress={navigation.navigate('Registration')}>
-                  <Text style={styles.registrationLink}>Sign Up now</Text>
-                </Pressable>
-            </View>
 
         </View>
 
@@ -191,5 +176,10 @@ export default function LoginPage( { navigation } ) {
     registrationLink: {
         color:Colors.WHITE,
         fontWeight: 'bold',
+    },
+    registrationLinkWrapper: {
+      backgroundColor: 'red',
+      paddingVertical: 5,
+      width: '40%'
     },
   });

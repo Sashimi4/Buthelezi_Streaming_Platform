@@ -18,18 +18,21 @@ public class UserService {
 
     //Methods under
 
-    public boolean registerUser(User user) {
+    public boolean saveUser(User user) {
         if(isAlreadyRegistered(user)) {
             return false;
         }
         try {
-            getUserRepository().save(new User(user.email, user.password));
+            getUserRepository().save(new User(user.email, user.password)); //goal is that it then get's encoded
             return true;
         }catch (IllegalArgumentException ie) {
             return false;
         }
     }
 
+    public User retreiveUser(User user) {
+        return getUserRepository().findByEmail(user.email);
+    }
 
     public boolean isAlreadyRegistered(User user) {
         return getUserRepository().findByEmail(user.email) != null;

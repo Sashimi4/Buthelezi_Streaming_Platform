@@ -36,21 +36,32 @@ public class UserController {
     }
 
 
+    /**
+     *
+     * @param user
+     * @return
+     */
     @PostMapping("users/registration")
     @ResponseBody
     public ResponseEntity<User> registrateUser(@RequestBody User user) {
-        if(userService.registerUser(user)) {
+        if(userService.saveUser(user)) {
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(user, HttpStatus.CONFLICT);
     }
 
-
-    //Test endpoint for test us
-    @PostMapping("login")
+    /**
+     *
+     * @param user
+     * @return
+     */
+    @GetMapping("users/login")
     @ResponseBody
-    public ResponseEntity<String> loginUser(@RequestHeader("Authorization") String content) {
-        System.out.println(content);
-        return new ResponseEntity<>("content", HttpStatus.ACCEPTED);
+    public ResponseEntity<User> loginUser(@RequestBody User user) {
+        User foundUser = userService.retreiveUser(user);
+        if(foundUser != null) {
+            return new ResponseEntity<>(foundUser, HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 }

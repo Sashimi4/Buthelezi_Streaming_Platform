@@ -12,7 +12,7 @@ import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import { AuthContext } from '../auth/Context';
 
-export default function ProfilePage() {
+export default function ProfilePage( { navigation } ) {
 
   const { signOut } = React.useContext(AuthContext)
 
@@ -31,34 +31,6 @@ export default function ProfilePage() {
     useEffect(() => {
         //getProfile();
       }, [])
-    
-      const getProfile = async () => {
-        try { //                        Use actual IP to resolve local host issue
-          const response = await fetch('http://192.168.0.226:8080/profile/', {
-            method: 'GET',
-            mode: 'cors',
-          });
-          const json = await response.json();
-        } catch(error) {
-          //Error Handling here
-        } finally {
-          //setLoading(false);
-        }
-      }
-
-      const editProfile = async () => {
-        try { //                        Use actual IP to resolve local host issue
-          const response = await fetch('http://192.168.0.226:8080/profile/', {
-            method: 'PUT',
-            mode: 'cors',
-          });
-          const json = await response.json();
-        } catch(error) {
-          //Error Handling here
-        } finally {
-          //setLoading(false);
-        }
-      }
 
     return (
 
@@ -85,7 +57,7 @@ export default function ProfilePage() {
 
               <View style={styles.headerWrapper}>
                   <Pressable style={styles.editIconWraper}
-                  onPress={() => console.log("Edit")}>
+                  onPress={navigation.navigate('ProfilePictureSelection')}>
                       <Icon
                       style={styles.profilePictureIcon}
                       name='pencil-plus'

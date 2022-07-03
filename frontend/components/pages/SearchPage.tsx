@@ -10,6 +10,7 @@ import MovieCard from '../atoms/MovieCard';
 
 import * as yup from 'yup'
 import { Formik } from 'formik'
+import { searchMovie } from '../functional/PerformSearch';
 
 export default function SearchPage() {
 
@@ -26,22 +27,6 @@ export default function SearchPage() {
   useEffect(() => {
   }, [searchResults])
 
-  const getSearchResults = async () => {
-    try { //                        Use actual IP to resolve double local host issue
-      setLoading(true);  
-      const response = await fetch(`http://192.168.0.226:8080/search?keyword=${keyword}`, { //issue here if the movie has special characters and 
-        method: 'GET',
-        mode: 'cors',
-      });
-      const json = await response.json();
-      setSearchResults(json);
-    } catch(error) {
-      //Error Handling here
-    } finally {
-      setLoading(false);
-    }
-  }
-
     return (
       <View style={styles.container}>
 
@@ -50,7 +35,12 @@ export default function SearchPage() {
         <Formik
             validationSchema={searchValidationSchema}
             initialValues={{ keyword: ''}}
-            onSubmit={values => console.log(values)}
+            onSubmit={async values => {
+              setLoading(true)
+              setSearchResults(await searchMovie(values.keyword))
+              setLoading(false)
+              console.log(values)
+            }}
             >
                 {({
                   handleChange,

@@ -5,10 +5,10 @@ import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } fr
 
 import Colors from '../../assets/Colors'
 
-export default function BackButton() {
+export default function BackButton(props) {
   
     const navigateBack = () => {
-      console.log('back pressed')
+      props.navigation.navigate(props.destination)
     }
 
     return (

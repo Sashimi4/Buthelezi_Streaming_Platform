@@ -8,7 +8,7 @@ import Logo from '../atoms/Logo';
 import MovieCard from '../atoms/MovieCard';
 import MovieCarousel from '../molecules/MovieCarousel';
 
-export default function HomePage() {
+export default function HomePage({navigation}) {
 
   const [isLoading, setLoading] = useState(true)
   const [movieData, setMovieData] = useState([])
@@ -51,7 +51,7 @@ export default function HomePage() {
             {isLoading ? <LoadingIcon/> : (
               movieData.map((prop) => {
                 return (
-                  <MovieCard key={prop.id} source={prop.imgUrl} title={prop.title}/>
+                  <MovieCard key={prop.id} source={prop.imgUrl} title={prop.title} navigation={navigation}/>
                 );
               })
             )}
@@ -63,10 +63,10 @@ export default function HomePage() {
           style={styles.horizontalMovieList}
           horizontal={true}
           >
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
-            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
+            <MovieCard source={"https://lumiere-a.akamaihd.net/v1/images/p_disneyplusoriginals_moonknight_v2_20656-1_f84e4b69.jpeg"} title={"Moonknight"} navigation={navigation}/>
           </ScrollView>
 
         </ScrollView>

@@ -8,6 +8,7 @@ import BackButton from '../atoms/BackButton';
 import LoadingIcon from '../atoms/LoadingIcon';
 import Logo from '../atoms/Logo';
 import MovieCard from '../atoms/MovieCard';
+import { fetchMovie } from '../functional/PerformMovieDataFetch';
 
 export default function MoviePage(props) {
 
@@ -15,31 +16,17 @@ export default function MoviePage(props) {
 
   const [keyword, setKeyword] = useState("")
 
-  const [searchResults, setSearchResults] = useState([])
+  const [movieData, setMovieData] = useState([])
 
   useEffect(() => {
-  }, [searchResults])
-
-  const getSearchResults = async () => {
-    try { //                        Use actual IP to resolve double local host issue
-      setLoading(true);  
-      const response = await fetch(`http://192.168.0.226:8080/search?keyword=${keyword}`, { //issue here if the movie has special characters and 
-        method: 'GET',
-        mode: 'cors',
-      });
-      const json = await response.json();
-      setSearchResults(json);
-    } catch(error) {
-      //Error Handling here
-    } finally {
-      setLoading(false);
-    }
-  }
+    //fetch all movie data and assign it:
+    //setMovieData(fetchMovie)
+  }, [])
 
     return (
       <View style={styles.container}>
 
-      <BackButton/>
+      <BackButton destination={'Home'} navigation={props.navigation}/>
       <ScrollView>
 
         <View style={styles.headerWrapper}>
