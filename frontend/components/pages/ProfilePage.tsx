@@ -11,6 +11,7 @@ import Logo from '../atoms/Logo';
 import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import { AuthContext } from '../auth/Context';
+import { updateUser } from '../functional/PerformProfileUpdate';
 
 export default function ProfilePage( { route, navigation } ) {
 
@@ -38,7 +39,11 @@ export default function ProfilePage( { route, navigation } ) {
         <Formik
           validationSchema={editProfileValidationSchema}
           initialValues={{ email: '', username: '', profilePitureSource: newProfilePictureSrc} /* fetch api and fill these inital values */}
-          onSubmit={values => console.log(values)}
+          onSubmit={async (values) => {
+              let updatedUser = await updateUser(values.email, values.username)
+              values.email = updatedUser?.email
+              values.username = updatedUser?.username
+            }}
           >
               {({
                   handleChange,

@@ -1,3 +1,4 @@
+import HTTPS_CODE from "../../assets/HTTPS_CODE";
 
 export const registerUser = async (email: string, password: string) => {
     console.log(password)
@@ -15,7 +16,10 @@ export const registerUser = async (email: string, password: string) => {
             }),
         });
         const json = await response.json();
-        console.log(json);
+        if(response.status == HTTPS_CODE.CREATED) {
+            return true;
+        }
+        return false;
       } catch(e) {
         console.error(`Reistration failed : ${e}`)
       }

@@ -74,30 +74,23 @@ export default function App() {
   };
 
   const authContext = React.useMemo(() => ({
-    signIn: (userEmail, password) => {
-      let userToken
-      userToken = null
-      //check if validation is correct => can be don server side to make sure it's working
-      if(userEmail == 'Sascha.Buthelezi04@gmail.com' && password == 'Sascha12!') {
-          storeToken(userToken)
-      }
-      dispatch({ type: 'LOGIN', id: userEmail, token: userToken});
+    signIn: async (userEmail) => {
+      await storeToken(userEmail)
+      dispatch({ type: 'LOGIN', id: userEmail, token: await retreiveToken()});
     },
-    signOut: () => {
-      removeToken()
+    signOut: async () => {
+      await removeToken()
       dispatch({ type: 'LOGOUT' })
     },
-    signUp: () => {
-      //save user and then make them sign in anyway so basically don't do anything
+    signUp: async (userEmail) => {
+      await storeToken(userEmail)
+      dispatch({ type: 'REGISTER', id: userEmail, token: await retreiveToken()});
     },
   }))
 
   useEffect(() => {
-    setTimeout(()=> {
-      let userToken
-      userToken = null
-      userToken = retreiveToken()
-      dispatch({type: 'REGISTER', token: userToken /* define token here*/});
+    setTimeout(async ()=> {
+      dispatch({type: 'RETRIEVE_TOKEN', token: await retreiveToken()});
     }, 1000)
   }, []);
 

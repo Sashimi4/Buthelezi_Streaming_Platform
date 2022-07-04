@@ -113,7 +113,6 @@ export default function DownloadPage({navigation}) {
       alignSelf: 'center',
       flexDirection: 'row',
       width: '90%',
-      backgroundColor: 'red',
       flexWrap: 'wrap',
     },
     horizontalMovieListTitle: {

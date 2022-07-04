@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import SnackBar from 'react-native-snackbar-component'
 
 import Colors from '../../assets/Colors'
 import Logo from '../atoms/Logo';
@@ -10,7 +11,7 @@ import { Formik } from 'formik'
 import { AuthContext } from '../auth/Context';
 import { registerUser } from '../functional/PerformRegistration';
 
-export default function RegistrationPage() {
+export default function RegistrationPage( {navigation} ) {
 
     const { signUp } = React.useContext(AuthContext)
 
@@ -38,8 +39,15 @@ export default function RegistrationPage() {
         validationSchema={signUpValidationSchema}
         initialValues={{ email: '', password: '', confirmPassword: ''}}
         onSubmit={values => {
-            registerUser(values.email, values.password)
-            signUp()
+            if(registerUser(values.email, values.password)){
+                signUp()
+                navigation.navigate("Login")
+            }
+            return (<SnackBar 
+                visible={true}
+                testMessage="It seems you are already registered."
+                actionHandler={()=>{console.log("snackbar button clicked!")}} 
+                actionText="let's go"/>)
         }}
         >
             {({

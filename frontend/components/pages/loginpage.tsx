@@ -35,9 +35,10 @@ export default function LoginPage( { navigation } ) {
       <Formik
             validationSchema={loginValidationSchema}
             initialValues={{ email: '', password: ''}}
-            onSubmit={(values) => {
-              loginUser(values.email, values.password)
-              signIn(values.email, values.password)//if succesful call signIn
+            onSubmit={async (values) => {
+              if(await loginUser(values.email, values.password) != null) {
+                  signIn(values.email)
+              }
             }}
             >
                 {({

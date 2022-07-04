@@ -10,7 +10,7 @@ import Colors from '../../assets/Colors'
 
 const Stack = createStackNavigator();
 
-export default function UnauthenticatedNavigatorNavigator() {
+export default function UnauthenticatedNavigator() {
     return (
         <Stack.Navigator screenOptions={({ route }) => ({
         headerShown: false,

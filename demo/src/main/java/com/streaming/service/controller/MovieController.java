@@ -21,16 +21,15 @@ public class MovieController {
     @GetMapping("movies")
     @ResponseBody
     public List<Movie> getMovieData() throws InterruptedException {
-        Thread.sleep(3000); //testing loading icon
+        Thread.sleep(3000); //Purpose to show loading icon element
         return movieService.retrieveAllMovies();
     }
 
 
     @GetMapping("search")
     @ResponseBody //Will need to be limited to roughly 50 results
-    public List<Movie> searchMovies(@RequestParam String keyword) throws InterruptedException {
-        Thread.sleep(3000); //testing loading icon
-        return movieService.retrieveAllMovies();
+    public List<Movie> searchMovies(@RequestParam String keyword) {
+        return movieService.getMovieRepository().findAllMovies(keyword);
     }
 
 }

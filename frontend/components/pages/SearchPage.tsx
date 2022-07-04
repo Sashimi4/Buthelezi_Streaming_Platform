@@ -108,7 +108,6 @@ export default function SearchPage( { navigation } ) {
       flexWrap: 'wrap',
       alignSelf: 'center',
       justifyContent: 'space-evenly',
-      backgroundColor: 'red',
     },
     horizontalMovieListTitle: {
       color: Colors.WHITE,

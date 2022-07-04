@@ -1,9 +1,9 @@
+import HTTPS_CODE from "../../assets/HTTPS_CODE";
 
 export const loginUser = async (email: string, password: string) => {
-    console.log(password)
     try { //                       Use actual IP to resolve double local host issue  
         const response = await fetch(`http://192.168.0.226:8080/users/login`, {
-            method: 'GET',
+            method: 'POST',
             mode: 'cors',
             headers: {
                 'Accept': 'application/json',
@@ -14,8 +14,10 @@ export const loginUser = async (email: string, password: string) => {
                 password: password,
             }),
         });
-        const json = await response.json();
-        console.log(json);
+        if(response.status == HTTPS_CODE.SUCCESS) {
+            return response.json
+        }
+        return null
       } catch(e) {
         console.error(`Login failed : ${e}`)
       }

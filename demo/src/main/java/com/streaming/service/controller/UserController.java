@@ -20,30 +20,14 @@ public class UserController {
         this.userService= userService;
     }
 
-    /**
-     *
-     * @return
-     */
-    @GetMapping("profile")
+    @PutMapping("users/profile")
     @ResponseBody
-    public User getTempUser() {
-        return new User(UUID.randomUUID(),"cool.guy@gmail.com","Jimmy5","https://i.pinimg.com/736x/09/5b/64/095b641e4ec37c558328c2dcf8d7cefc.jpg","1234Pass");
+    public ResponseEntity<User> updateUser(@RequestBody User user) {
+        User foundUser = userService.retreiveUser(user);
+        User updatedUser = userService.updateUser(foundUser, user);
+        return new ResponseEntity<>(updatedUser, HttpStatus.ACCEPTED);
     }
 
-
-    //Test endpoint
-    @GetMapping("allusers")
-    @ResponseBody
-    public List<User> getAllUser() {
-        return userService.getAllUsers();
-    }
-
-
-    /**
-     *
-     * @param user
-     * @return
-     */
     @PostMapping("users/registration")
     @ResponseBody
     public ResponseEntity<User> registrateUser(@RequestBody User user) {
@@ -53,18 +37,13 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.CONFLICT);
     }
 
-    /**
-     *
-     * @param user
-     * @return
-     */
-    @GetMapping("users/login")
+    @PostMapping("users/login")
     @ResponseBody
     public ResponseEntity<User> loginUser(@RequestBody User user) {
         User foundUser = userService.retreiveUser(user);
-        if(foundUser != null) {
+        if(userService.verifyUser(foundUser, user)) {
             return new ResponseEntity<>(foundUser, HttpStatus.ACCEPTED);
         }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(user, HttpStatus.NOT_FOUND);
     }
 }
